@@ -1,5 +1,8 @@
 .search-component {
   border-bottom: 1px solid var(--border-color);
+  display: flex; /* Make search-component a flex container */
+  flex-direction: column; /* Stack its children vertically */
+  box-sizing: border-box; /* Ensure consistent box model */
 }
 
 .search-heading {
@@ -13,28 +16,45 @@
 .search-input-container {
   position: relative;
   margin-bottom: 1rem;
+  display: flex; /* Make it a flex container to align input and icon */
+  align-items: center; /* Vertically center items */
+  box-sizing: border-box; /* Ensure consistent box model */
+  /* Google Search Bar Style */
+  border: 1px solid var(--border-color);
+  border-radius: 50px; /* Completely rounded edges */
+  background-color: var(--input-background-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0; /* Vertical padding for the container */
 }
 
 .search-input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  padding: 0.25rem 0.75rem; /* Adjust padding to fit within the container */
+  border: none; /* Remove border, container will have it */
+  background-color: transparent; /* Remove background, container will have it */
   font-size: 1rem;
   box-sizing: border-box; /* Ensure padding doesn't increase width */
-  padding-right: 2.5rem; /* Space for clear button */
+  flex-grow: 1; /* Allow input to take available space */
+  outline: none; /* Remove outline on focus */
+  color: var(--text-color); /* Ensure text color is visible */
 }
 
 .clear-input-button {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
+  /* Position relative to the flex container, not absolute */
   background: none;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
   color: var(--text-color);
+  padding: 0 0.5rem; /* Add some padding */
+  z-index: 1; /* Ensure button is above the search icon if both are present */
+}
+
+.search-input-container .search-icon { /* Styling for the new search icon */
+  color: var(--text-color-light);
+  font-size: 1.2em;
+  margin-left: 0.75rem; /* Add margin to separate from the left edge */
+  /* Removed absolute positioning as it's now a flex item */
 }
 
 .filter-controls {
@@ -89,8 +109,8 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: var(--background-color);
-  max-height: 300px; /* Limit height */
-  overflow-y: auto; /* Enable scrolling */
+  box-sizing: border-box; /* Ensure consistent box model */
+  /* Removed max-height and overflow-y: auto as per user feedback */
 }
 
 .filters-container h3 {
@@ -127,6 +147,7 @@
   align-items: center;
   font-size: 0.9rem;
   color: var(--text-color);
+  box-sizing: border-box; /* Ensure consistent box model */
 }
 
 .category-checkboxes input[type="checkbox"] {
@@ -140,5 +161,5 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
-  box-sizing: border-box;
+  box-sizing: border-box; /* Ensure consistent box model */
 }

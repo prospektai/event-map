@@ -173,6 +173,7 @@ const MapPage = () => {
         currentSelectedCategories={currentSelectedCategories}
         currentDateFrom={currentDateFrom}
         currentDateTo={currentDateTo}
+        showSearchIcon={true} // Add search icon to MapPage's SearchComponent
       />
       <FloatingMenuButton isOpen={sidebarOpen} onClick={() => setSidebarOpen(true)} />
     </div>

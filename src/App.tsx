@@ -5,9 +5,12 @@ import type { Transition } from 'framer-motion';
 import Navbar from './components/Navbar';
 import MapPage from './pages/MapPage';
 import AboutPage from './pages/AboutPage';
+import EventsPage from './pages/EventsPage'; // Import EventsPage
+import TrackedEventsPage from './pages/TrackedEventsPage'; // Import TrackedEventsPage
 import { events } from './data/events'; // Import events data
 import preloadImages from './utils/imagePreloader'; // Import image preloader utility
 import './App.css';
+import { TrackedEventsProvider } from './context/TrackedEventsContext'; // Import the provider
 
 const pageVariants = {
   initial: {
@@ -65,6 +68,36 @@ const AnimatedRoutes = () => {
             </motion.div>
           }
         />
+        <Route
+          path="/events"
+          element={
+            <motion.div
+              className="page-container"
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <EventsPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/tracked-events"
+          element={
+            <motion.div
+              className="page-container"
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <TrackedEventsPage />
+            </motion.div>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
@@ -80,7 +113,9 @@ function App() {
     <Router>
       <Navbar />
       <main className="main-content">
-        <AnimatedRoutes />
+        <TrackedEventsProvider> {/* Wrap AnimatedRoutes with the provider */}
+          <AnimatedRoutes />
+        </TrackedEventsProvider>
       </main>
     </Router>
   );

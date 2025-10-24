@@ -51,7 +51,7 @@ nav ul li a:hover {
 .main-content {
   flex-grow: 1;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto; /* Allow vertical scrolling for the main content */
 }
 
 .page-container {
@@ -87,18 +87,9 @@ nav ul li a:hover {
   transform: translateX(0);
 }
 
+/* Removed absolute positioning from sidebar close button */
 .sidebar .sidebar-close-btn {
-  position: absolute;
-  top: 6px;
-  right: var(--ps); /* Adjusted right position to prevent overlap with scrollbar */
-  padding: 0.5rem;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--text-color);
-  transition: color 0.3s ease;
-  z-index: 1001;
+  display: none; /* Hide the old close button */
 }
 
 .sidebar .sidebar-close-btn:hover {
@@ -110,9 +101,10 @@ nav ul li a:hover {
   display: flex;
   height: 100%;
   flex-direction: column;
-  overflow: hidden auto; /* Hide overflow for the wrapper, content divs will scroll */
-
+  overflow-y: auto; /* Allow the wrapper to scroll vertically */
+  min-height: 0; /* Allow flex item to shrink */
   padding: var(--ps);
+  padding-top: var(--ps); /* Revert padding-top as close button is now in flow */
 }
 
 .sidebar h2 {
@@ -133,15 +125,15 @@ nav ul li a:hover {
 
 .search-component-wrapper {
   margin-bottom: 1rem; /* Add margin below search component */
+  flex-shrink: 0; /* Prevent the search component from shrinking */
+  /* Removed max-height and overflow-y: auto to allow natural expansion within the scrollable sidebar-content-wrapper */
 }
 
 .event-details-scrollable-content,
 .event-list-scrollable-content {
   flex-grow: 1;
-  overflow-y: auto; /* Enable scrolling for specific content */
+  /* Removed overflow-y: auto; to rely on parent for scrolling */
   padding-right: 1rem; /* Add padding for scrollbar */
-  /* Ensure content takes available height */
-  height: 0; /* Important for flex-grow to work with overflow */
 }
 
 .event-list {
@@ -176,4 +168,75 @@ nav ul li a:hover {
   margin-bottom: 1rem;
   border-radius: 8px;
   object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+/* Styles for the new sidebar top header */
+.sidebar-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--ps);
+  padding-bottom: 0; /* Adjust as needed */
+}
+
+.sidebar-header-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+  margin-left: 1rem; /* Space from "All events" button */
+}
+
+.sidebar-header-close-btn:hover {
+  color: var(--primary-color);
+}
+
+/* Adjust the "All events" button to not take full width */
+.sidebar-top-header .button.unfilled {
+  flex-grow: 0;
+  width: auto;
+}
+
+/* Styles for event details header in sidebar */
+.event-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.event-details-header h2 {
+  margin-bottom: 0; /* Reset margin as it's in a flex container */
+}
+
+/* Styles for the track event button in the sidebar */
+.sidebar-track-event-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Space between icon and text */
+  padding: 0.5rem 1rem;
+  margin-top: 1rem; /* Position below content */
+  background-color: var(--card-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 25px; /* Pill shape */
+  font-size: 1em;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  width: fit-content; /* Make it compact */
+}
+
+.sidebar-track-event-button:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.sidebar-track-event-button.tracked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
 }

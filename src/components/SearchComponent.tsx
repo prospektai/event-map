@@ -4,6 +4,7 @@ import './SearchComponent.css';
 import Button from './Button'; // Assuming Button component is available
 import { motion, AnimatePresence } from 'framer-motion'; // Import motion and AnimatePresence
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons'; // Import faSearch
 
 interface SearchComponentProps {
   onSearch: (searchTerm: string, categories: EventCategory[], dateFrom: string, dateTo: string) => void;
@@ -12,6 +13,8 @@ interface SearchComponentProps {
   currentSelectedCategories: EventCategory[];
   currentDateFrom: string;
   currentDateTo: string;
+  showSearchIcon?: boolean; // New prop for showing search icon
+  showHeading?: boolean; // New prop for showing the heading
 }
 
 const filterVariants = {
@@ -26,6 +29,8 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   currentSelectedCategories,
   currentDateFrom,
   currentDateTo,
+  showSearchIcon, // Destructure new prop
+  showHeading = true, // Destructure new prop with default true
 }) => {
   const [searchTerm, setSearchTerm] = useState(currentSearchTerm);
   const [selectedCategories, setSelectedCategories] = useState<EventCategory[]>(currentSelectedCategories);
@@ -109,8 +114,11 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
 
   return (
     <div className="search-component">
-      <h2 className="search-heading">Search for events</h2>
+      {showHeading && <h2 className="search-heading">Search for events</h2>}
       <div className="search-input-container">
+        {showSearchIcon && ( // Conditionally render search icon
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+        )}
         <input
           type="text"
           placeholder="yoga / music / conference ..." // Updated hint

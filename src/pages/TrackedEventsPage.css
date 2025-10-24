@@ -1,0 +1,24 @@
+.tracked-events-page-container {
+  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: auto; /* Changed to auto to fit content height */
+}
+
+.tracked-events-page-container h1 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tracked-events-page-container p {
+  text-align: center;
+  color: var(--text-color-light);
+}
+
+.tracked-events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}

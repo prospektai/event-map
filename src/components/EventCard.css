@@ -1,0 +1,102 @@
+.event-card {
+  flex: 0 0 auto; /* Prevent cards from shrinking */
+  width: 300px; /* Fixed width for cards */
+  height: 400px; /* Decreased height for more compact cards */
+  scroll-snap-align: start; /* Snap to start of card */
+  background-color: var(--card-background-color);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: visible; /* Changed to visible to prevent clipping on hover animation */
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  position: relative; /* Added for positioning the track-event-button */
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.event-card-image {
+  width: 100%;
+  height: 150px; /* Decreased image height to fit new card height */
+  object-fit: cover;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.event-card-title {
+  font-size: 1.5em;
+  margin: 15px 15px 5px 15px;
+  color: var(--text-color);
+  text-align: left; /* Align left */
+}
+
+.event-card-date {
+  font-size: 0.9em;
+  color: var(--text-color-light);
+  margin: 0 15px 10px 15px;
+  text-align: left; /* Align left */
+}
+
+.event-card-description {
+  font-size: 1em;
+  color: var(--text-color);
+  margin: 0 15px 15px 15px;
+  flex-grow: 1; /* Allow description to take up available space */
+  max-height: 4.5em; /* Limit description to 3 lines (approx) */
+  overflow: hidden;
+  position: relative;
+  line-height: 1.5em; /* Ensure consistent line height */
+  text-align: left; /* Align left */
+}
+
+.event-card-description::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 1.5em; /* Height of one line to create fade effect */
+  background: linear-gradient(to right, rgba(255,255,255,0), var(--card-background-color) 70%);
+  pointer-events: none; /* Allow text selection through the fade */
+}
+
+.event-card-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 15px 15px 15px;
+}
+
+.event-card-category-tag {
+  background-color: black; /* Black background */
+  color: white; /* White text */
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  display: flex; /* Use flex to align icon and text */
+  align-items: center; /* Vertically center icon and text */
+  gap: 5px; /* Space between icon and text */
+}
+
+.track-event-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: var(--text-color-light);
+  cursor: pointer;
+  z-index: 10; /* Ensure it's above other content */
+  transition: color 0.2s ease;
+}
+
+.track-event-button:hover {
+  color: var(--primary-color);
+}
+
+.track-event-button.tracked {
+  color: var(--primary-color); /* Color when tracked */
+}
