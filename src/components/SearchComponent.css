@@ -1,0 +1,144 @@
+.search-component {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.search-heading {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.search-input-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Ensure padding doesn't increase width */
+  padding-right: 2.5rem; /* Space for clear button */
+}
+
+.clear-input-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.filter-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.filter-toggle-button {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  display: flex; /* Enable flexbox for icon and text alignment */
+  align-items: center; /* Vertically align icon and text */
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.filter-toggle-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.filter-icon {
+  font-size: 1rem; /* Adjust icon size if needed */
+}
+
+.clear-all-button {
+  padding: 0.5rem 1rem; /* Adjust padding to match filter button */
+  font-weight: 500; /* Match font weight */
+  border-radius: 8px; /* Match border radius */
+  border: 1px solid var(--border-color); /* Add border for consistency */
+  color: var(--text-color); /* Adjust text color */
+  background-color: transparent; /* Make background transparent */
+  cursor: pointer; /* Add pointer cursor on hover */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.clear-all-button:hover {
+  background-color: var(--background-color); /* Hover effect */
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.filters-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--background-color);
+  max-height: 300px; /* Limit height */
+  overflow-y: auto; /* Enable scrolling */
+}
+
+.filters-container h3 {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.filter-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.clear-filter-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.category-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-checkboxes label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.category-checkboxes input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: var(--primary-color);
+}
+
+.date-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
