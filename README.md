@@ -53,7 +53,10 @@ To build and run the application in a production-ready Docker container (served 
     docker compose --profile prod up -d --build
     ```
 2.  **Access the application:**
-    Open your browser and navigate to `http://localhost:80`.
+    Open your browser and navigate to `https://localhost` (or `http://localhost:80` for HTTP).
+
+## Deployment
+The application is deployed and accessible at: [https://event-map.ocelot.lt](https://event-map.ocelot.lt)
 
 ### Local Development (without Docker)
 To run the application locally without Docker:
