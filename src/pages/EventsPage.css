@@ -44,10 +44,6 @@
   width: 100%; /* Ensure it takes full width of search-component */
 }
 
-.events-search-bar-wrapper .search-input {
-  /* No specific styling here, let SearchComponent.css handle it */
-}
-
 .events-search-bar-wrapper .clear-input-button {
   position: absolute;
   right: 50px; /* Position next to search icon */

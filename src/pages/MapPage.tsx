@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import Sidebar from '../components/Sidebar';
@@ -9,7 +9,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import L from 'leaflet';
-import { getMarkerIcon, categoryIcons } from '../utils/categoryIcons'; // Import getMarkerIcon and categoryIcons
+import { getMarkerIcon } from '../utils/categoryIcons'; // Import getMarkerIcon and categoryIcons
 import { useTrackedEvents } from '../context/TrackedEventsContext'; // Import useTrackedEvents
 import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'; // Import solid heart icon
 import { renderToString } from 'react-dom/server'; // To render React component to string for DivIcon

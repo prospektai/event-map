@@ -1,8 +1,7 @@
 import React from 'react';
 import './TrackedEventsPage.css';
 import { useTrackedEvents } from '../context/TrackedEventsContext';
-import type { Event, EventCategory } from '../data/events'; // Import Event and EventCategory types
-import { categoryIcons } from '../utils/categoryIcons'; // Import categoryIcons
+import type { Event } from '../data/events'; // Import Event and EventCategory types
 import EventCard from '../components/EventCard'; // Import the reusable EventCard component
 import { filterAndSortEvents } from '../utils/eventUtils'; // Import the utility function
 
