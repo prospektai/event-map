@@ -127,6 +127,7 @@
   width: 100%; /* Adhere to the width of the search input container */
   z-index: 100; /* Ensure it appears above other content */
   margin-top: 0.5rem; /* Small margin from the search bar */
+  margin-bottom: 0.5rem; /* Small margin from the search bar */
   backdrop-filter: blur(10px); /* Apple-like blurred background */
   background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
   border: none; /* Remove border for a cleaner look with blur */
@@ -307,4 +308,8 @@
 /* Adjust datepicker popper position for Events Page */
 .search-component.events-page-search .react-datepicker-popper {
   left: 0 !important; /* Align popper to the left edge of the input */
+}
+
+.search-component.events-page-search {
+  padding-bottom: 1rem;
 }

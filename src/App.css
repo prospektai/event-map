@@ -261,3 +261,27 @@ nav ul li a:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
   z-index: 1001; /* Ensure it's above the marker */
 }
+
+/* Styles for the add to calendar button in the sidebar */
+.sidebar-add-to-calendar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* Space between icon and text */
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem; /* Position below track event button */
+  background-color: var(--card-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 25px; /* Pill shape */
+  font-size: 1em;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  width: fit-content; /* Make it compact */
+}
+
+.sidebar-add-to-calendar-button:hover {
+  background-color: var(--secondary-color); /* Use a different hover color */
+  border-color: var(--secondary-color);
+  color: white;
+}

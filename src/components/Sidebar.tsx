@@ -5,9 +5,10 @@ import type { Event, EventCategory } from '../data/events'; // Import EventCateg
 import Button from './Button'; // Import the new Button component
 import SearchComponent from './SearchComponent'; // Import SearchComponent
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faSolidHeart, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faRegularHeart } from '@fortawesome/free-regular-svg-icons';
 import { useTrackedEvents } from '../context/TrackedEventsContext'; // Import useTrackedEvents
+import { addToCalendar } from '../utils/eventUtils'; // Import addToCalendar
 
 interface SidebarProps {
   events: Event[];
@@ -105,6 +106,15 @@ const Sidebar: React.FC<SidebarProps> = ({
                           >
                             <FontAwesomeIcon icon={isEventTracked(selectedEvent.id) ? faSolidHeart : faRegularHeart} />{' '}
                             {isEventTracked(selectedEvent.id) ? 'Untrack Event' : 'Track Event'}
+                          </button>
+                        )}
+                        {selectedEvent && (
+                          <button
+                            className="sidebar-add-to-calendar-button"
+                            onClick={() => addToCalendar(selectedEvent)}
+                          >
+                            <FontAwesomeIcon icon={faCalendarPlus} />{' '}
+                            Add to Calendar
                           </button>
                         )}
                       </div>

@@ -55,6 +55,16 @@ To run the application locally without Docker:
 2.  **Access the application:**
     Open your browser and navigate to `http://localhost:5173`.
 
+## Screenshots
+To add screenshots, place your image files (e.g., `screenshot1.png`, `screenshot2.jpg`) into the `images/` directory. Then, you can link them in the `README.md` using Markdown syntax like this:
+
+```markdown
+![Alt text for screenshot 1](images/screenshot1.png)
+![Alt text for screenshot 2](images/screenshot2.jpg)
+```
+Example:
+![Event Map Screenshot](images/em.png)
+
 ## License
 This project is open-source and available under the MIT License. Feel free to use, modify, and distribute it.
 (Note: Third-party libraries and icons used within this project may have their own respective licenses.)

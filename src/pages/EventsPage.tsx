@@ -20,20 +20,38 @@ const EventsPage: React.FC = () => {
 
   // Refs for each event-cards-row
   const scrollRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [showScrollButtons, setShowScrollButtons] = useState<Map<string, boolean>>(new Map());
+
+  const checkScrollOverflow = useCallback((category: string) => {
+    const row = scrollRefs.current.get(category);
+    if (row) {
+      const hasOverflow = row.scrollWidth > row.clientWidth;
+      setShowScrollButtons(prev => {
+        const newMap = new Map(prev);
+        if (newMap.get(category) !== hasOverflow) {
+          newMap.set(category, hasOverflow);
+          return newMap;
+        }
+        return prev;
+      });
+    }
+  }, []);
 
   const addToRefs = useCallback((node: HTMLDivElement | null, category: string) => {
     if (node) {
       scrollRefs.current.set(category, node);
+      // Immediately check overflow when a ref is added
+      checkScrollOverflow(category);
     } else {
       scrollRefs.current.delete(category);
     }
-  }, []);
+  }, [checkScrollOverflow]);
 
   const scrollRow = useCallback((category: string, direction: 'left' | 'right') => {
     const row = scrollRefs.current.get(category);
     if (row) {
-      const cardWidth = 300; // Fixed width of event-card
-      const gap = 20; // Gap between cards
+      const cardWidth = 300; // Fixed width of event-card (adjust if your CSS changes this)
+      const gap = 20; // Gap between cards (adjust if your CSS changes this)
       const scrollAmount = (cardWidth * 2) + (gap * 2); // Scroll by 2 cards + 2 gaps
 
       if (direction === 'left') {
@@ -107,6 +125,24 @@ const EventsPage: React.FC = () => {
     return groups;
   }, [filteredEvents]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      scrollRefs.current.forEach((_, category) => {
+        checkScrollOverflow(category);
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    // Initial check for all categories after component mounts and refs are set
+    scrollRefs.current.forEach((_, category) => {
+      checkScrollOverflow(category);
+    });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [checkScrollOverflow, groupedEvents]); // Re-run if groupedEvents changes
+
   return (
     <div className="events-page-container">
       <div className="events-search-section">
@@ -134,12 +170,16 @@ const EventsPage: React.FC = () => {
               <div className="event-category-header">
                 <h2 className="event-category-title">{categoryIcons[category as EventCategory]} {category}</h2>
                 <div className="event-category-navigation">
-                  <button className="nav-arrow-button left" onClick={() => scrollRow(category, 'left')}>
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                  </button>
-                  <button className="nav-arrow-button right" onClick={() => scrollRow(category, 'right')}>
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </button>
+                  {showScrollButtons.get(category) && (
+                    <>
+                      <button className="nav-arrow-button left" onClick={() => scrollRow(category, 'left')}>
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                      </button>
+                      <button className="nav-arrow-button right" onClick={() => scrollRow(category, 'right')}>
+                        <FontAwesomeIcon icon={faChevronRight} />
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <div
