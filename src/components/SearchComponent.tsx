@@ -46,11 +46,6 @@ const DateInputWithIcon = React.forwardRef<HTMLInputElement, { value?: string; o
   )
 );
 
-const filterVariants = {
-  collapsed: { height: 0, opacity: 0, overflow: 'hidden' },
-  expanded: { height: 'auto', opacity: 1, overflow: 'visible' },
-};
-
 const SearchComponent: React.FC<SearchComponentProps> = ({
   onSearch,
   allCategories,

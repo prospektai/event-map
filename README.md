@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# Event Map - React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Summary
+Event Map is a dynamic React application designed to visualize and track events on an interactive map. Users can browse events by category, search by keywords, filter by date ranges, and track events of interest.
 
-Currently, two official plugins are available:
+## Features
+- **Interactive Map:** Displays event locations using Leaflet.js and marker clustering.
+- **Event Listing:** View a comprehensive list of events with detailed information.
+- **Search & Filter:** Search events by title/description, filter by categories (e.g., Yoga, Music, Conference), and date ranges.
+- **Event Tracking:** Users can "track" events to easily find them later.
+- **Responsive Design:** Optimized for various screen sizes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Setup
+To set up the project locally, ensure you have Node.js (v20 or higher) and Yarn installed.
 
-## React Compiler
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/prospektai/event-map.git
+    cd event-map
+    ```
+2.  **Install dependencies:**
+    ```bash
+    yarn install
+    ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Quick Start Guide
 
-## Expanding the ESLint configuration
+### Development Environment (using Docker Compose)
+To run the application in a development Docker container:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.  **Build and run the development container:**
+    ```bash
+    docker compose --profile dev up -d --build
+    ```
+2.  **Access the application:**
+    Open your browser and navigate to `http://localhost:5173`. The application will automatically reload on code changes.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Production Environment (using Docker Compose)
+To build and run the application in a production-ready Docker container (served by Nginx):
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1.  **Build and run the production container:**
+    ```bash
+    docker compose --profile prod up -d --build
+    ```
+2.  **Access the application:**
+    Open your browser and navigate to `http://localhost:80`.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Local Development (without Docker)
+To run the application locally without Docker:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1.  **Start the development server:**
+    ```bash
+    yarn dev
+    ```
+2.  **Access the application:**
+    Open your browser and navigate to `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## License
+This project is open-source and available under the MIT License. Feel free to use, modify, and distribute it.
+(Note: Third-party libraries and icons used within this project may have their own respective licenses.)
