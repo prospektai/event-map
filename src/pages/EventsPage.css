@@ -17,7 +17,6 @@
   align-items: center;
   width: 100%;
   max-width: 800px; /* Adjust as needed */
-  margin-bottom: 40px;
   /* Removed fixed height to allow filters to expand */
 }
 

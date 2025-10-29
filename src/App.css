@@ -217,18 +217,25 @@ nav ul li a:hover {
   gap: 0.5rem; /* Space between icon and text */
   padding: 0.5rem 1rem;
   margin-top: 1rem; /* Position below content */
-  background-color: var(--card-background-color);
-  border: 1px solid var(--border-color);
+  background-color: transparent; /* Transparent by default */
+  border: 1px solid var(--border-color); /* Toned down border */
   border-radius: 25px; /* Pill shape */
   font-size: 1em;
-  color: var(--text-color);
+  color: var(--text-color); /* Toned down text color */
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   width: fit-content; /* Make it compact */
+  /* Removed text-shadow */
+  /* Removed box-shadow */
+}
+
+.sidebar-track-event-button svg,
+.sidebar-add-to-calendar-button svg {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.724)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.724)); /* Thin white outline for SVG path */
 }
 
 .sidebar-track-event-button:hover {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color); /* Primary color on hover */
   border-color: var(--primary-color);
   color: white;
 }
@@ -270,18 +277,20 @@ nav ul li a:hover {
   gap: 0.5rem; /* Space between icon and text */
   padding: 0.5rem 1rem;
   margin-top: 0.5rem; /* Position below track event button */
-  background-color: var(--card-background-color);
-  border: 1px solid var(--border-color);
+  background-color: transparent; /* Transparent by default */
+  border: 1px solid var(--border-color); /* Toned down border */
   border-radius: 25px; /* Pill shape */
   font-size: 1em;
-  color: var(--text-color);
+  color: var(--text-color); /* Toned down text color */
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   width: fit-content; /* Make it compact */
+  /* Removed text-shadow */
+  box-shadow: 0 0 0 1px white; /* Thin white box-shadow outline */
 }
 
 .sidebar-add-to-calendar-button:hover {
-  background-color: var(--secondary-color); /* Use a different hover color */
-  border-color: var(--secondary-color);
+  background-color: var(--primary-color); /* Primary color on hover */
+  border-color: var(--primary-color);
   color: white;
 }
