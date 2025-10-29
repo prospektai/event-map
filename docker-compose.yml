@@ -1,24 +1,46 @@
 services:
-  frontend:
+  # Development frontend (Vite / React dev server)
+  frontend-dev:
     build:
       context: .
       target: development
+    container_name: event-map-frontend-dev
     ports:
-      - "5173:5173"
+      - "5173:5173"   # dev: exposed to host for local dev
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       - NODE_ENV=development
     profiles: ["dev"]
+    networks:
+      - app-network
+      - proxy-network
 
+  # Production frontend (Nginx serving built static files)
   frontend-prod:
     build:
       context: .
       target: production
-    ports:
-      - "80:80"
-      - "443:443"
+    container_name: event-map-frontend-prod
+    restart: always
+    # Do NOT publish host ports for prod - use expose so proxy can route to it
+    expose:
+      - "80"   # internal container port only
     volumes:
-      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/certs:/etc/nginx/certs    # optional if you bundle certs into the container
+    environment:
+      - NODE_ENV=production
     profiles: ["prod"]
+    networks:
+      - app-network
+      - proxy-network
+
+networks:
+  app-network:
+    driver: bridge
+  # proxy-network is external so host nginx or nginx-proxy container can attach
+  proxy-network:
+    external: true
+
+# No volumes defined here (add if needed)
