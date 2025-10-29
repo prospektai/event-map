@@ -21,6 +21,13 @@ fi
 echo "Using Docker Compose profile: $PROFILE"
 
 # ------------------------------
+# Generate certs for dev profile
+# ------------------------------
+# if [ "$PROFILE" = "dev" ]; then
+#     ./dev-snippets/generate-certs.sh
+# fi
+
+# ------------------------------
 # Ensure external network exists
 # ------------------------------
 if ! docker network ls --format '{{.Name}}' | grep -wq "$NETWORK_NAME"; then

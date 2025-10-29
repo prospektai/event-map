@@ -27,8 +27,6 @@ services:
     # Do NOT publish host ports for prod - use expose so proxy can route to it
     expose:
       - "80"   # internal container port only
-    volumes:
-      - ./nginx/certs:/etc/nginx/certs    # optional if you bundle certs into the container
     environment:
       - NODE_ENV=production
     profiles: ["prod"]
