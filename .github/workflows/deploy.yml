@@ -1,0 +1,24 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: git-deploy
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # The deploy.sh script will be executed automatically by ForceCommand
+            # No commands are needed here directly.
