@@ -1,6 +1,6 @@
 .event-card {
-  flex: 0 0 auto; /* Prevent cards from shrinking */
-  width: 300px; /* Fixed width for cards */
+  flex: 0 0 auto; /* Prevent cards from shrinking, restore for EventsPage */
+  width: 300px; /* Fixed width for cards, restore for EventsPage */
   height: 400px; /* Decreased height for more compact cards */
   scroll-snap-align: start; /* Snap to start of card */
   background-color: var(--card-background-color);
@@ -29,14 +29,18 @@
   font-size: 1.5em;
   margin: 15px 15px 5px 15px;
   color: var(--text-color);
-  text-align: left; /* Align left */
+  text-align: left !important; /* Align left */
+  margin-right: 50px; /* Ensure space for the track-event-button */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap; /* Keep text on a single line */
 }
 
 .event-card-date {
   font-size: 0.9em;
   color: var(--text-color-light);
   margin: 0 15px 10px 15px;
-  text-align: left; /* Align left */
+  text-align: left !important; /* Align left */
 }
 
 .event-card-description {
@@ -48,7 +52,7 @@
   overflow: hidden;
   position: relative;
   line-height: 1.5em; /* Ensure consistent line height */
-  text-align: left; /* Align left */
+  text-align: left !important; /* Align left */
 }
 
 .event-card-description::after {

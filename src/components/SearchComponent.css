@@ -25,6 +25,7 @@
   background-color: var(--input-background-color);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0; /* Vertical padding for the container */
+  padding-right: 0.5rem; /* Add padding to the right for the filter button */
 }
 
 .search-input {
@@ -65,21 +66,26 @@
 }
 
 .filter-toggle-button {
-  background-color: var(--primary-color);
-  color: var(--white-color);
+  background-color: transparent; /* Make background transparent */
+  color: var(--text-color-light); /* Use light text color */
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: 0.5rem; /* Adjust padding to be more compact */
+  border-radius: 50%; /* Make it circular */
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
   display: flex; /* Enable flexbox for icon and text alignment */
   align-items: center; /* Vertically align icon and text */
-  gap: 0.5rem; /* Space between icon and text */
+  justify-content: center; /* Center the icon */
+  width: 40px; /* Fixed width for circular button */
+  height: 40px; /* Fixed height for circular button */
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .filter-toggle-button:hover {
-  background-color: var(--secondary-color);
+  /* Removed background-color on hover as per user feedback */
+  color: var(--primary-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
 }
 
 .filter-icon {
@@ -104,13 +110,27 @@
 }
 
 .filters-container {
-  margin-top: 1rem;
+  margin-top: 1rem; /* Restore original margin-top for normal flow */
   padding: 1rem;
   border: 1px solid var(--border-color);
   border-radius: 8px;
   background-color: var(--background-color);
   box-sizing: border-box; /* Ensure consistent box model */
   /* Removed max-height and overflow-y: auto as per user feedback */
+}
+
+/* Specific styles for filters container on Events Page */
+.search-component.events-page-search .filters-container {
+  position: absolute; /* Position absolutely to prevent parent expansion */
+  top: 100%; /* Position below the search input container */
+  left: 0;
+  width: 100%; /* Adhere to the width of the search input container */
+  z-index: 100; /* Ensure it appears above other content */
+  margin-top: 0.5rem; /* Small margin from the search bar */
+  backdrop-filter: blur(10px); /* Apple-like blurred background */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  border: none; /* Remove border for a cleaner look with blur */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
 .filters-container h3 {
@@ -155,11 +175,136 @@
   accent-color: var(--primary-color);
 }
 
-.date-input {
+.date-inputs-container {
+  display: flex;
+  gap: 1rem; /* Gap between date inputs */
+  margin-bottom: 1rem; /* Space below the date inputs */
+}
+
+.date-input-group {
+  flex: 1; /* Allow each date input group to take equal space */
+}
+
+/* Sidebar specific date input layout */
+.search-component:not(.events-page-search) .date-inputs-container {
+  flex-direction: column; /* Stack vertically in sidebar */
+  gap: 0; /* Remove gap when stacked */
+}
+
+.search-component:not(.events-page-search) .date-input-group {
+  margin-bottom: 1rem; /* Add vertical spacing between stacked inputs */
+}
+
+.search-component:not(.events-page-search) .date-input-group:last-child {
+  margin-bottom: 0; /* No margin for the last item */
+}
+
+/* React Datepicker styles */
+.react-datepicker-wrapper {
+  width: 100%; /* Ensure datepicker wrapper takes full width */
+}
+
+.react-datepicker__input-container {
   width: 100%;
-  padding: 0.75rem;
+}
+
+.react-datepicker__input-container /* Custom date input with icon */
+.custom-date-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-date-input-container .date-input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2rem; /* Adjust padding-left for icon */
   border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
-  box-sizing: border-box; /* Ensure consistent box model */
+  box-sizing: border-box;
+  color: var(--text-color);
+  background-color: var(--white-color); /* Ensure white background for date input */
+  cursor: pointer;
+  margin: 0 !important;
+}
+
+.custom-date-input-container input.date-input {
+  padding-left: 2.5rem;
+}
+
+.date-input-icon {
+  position: absolute;
+  left: 0.75rem; /* Position icon inside the input */
+  color: var(--text-color-light);
+  font-size: 1em;
+  z-index: 0; /* Ensure icon is above the input */
+}
+
+/* Adjust icon position for Events Page if needed due to absolute positioning of filters-container */
+.search-component.events-page-search .date-input-icon {
+  /* No specific adjustment needed here, as the custom-date-input-container handles positioning */
+}
+
+.react-datepicker {
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background-color: var(--white-color);
+  z-index: 9999; /* Ensure datepicker appears on top */
+}
+
+.react-datepicker__header {
+  background-color: var(--primary-color);
+  border-bottom: none;
+  padding-top: 0.8rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: var(--white-color);
+}
+
+.react-datepicker__navigation {
+  top: 1rem;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: var(--white-color);
+}
+
+.react-datepicker__day {
+  color: var(--text-color);
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border-radius: 50%;
+}
+
+.react-datepicker__day--outside-month {
+  color: var(--text-color-light);
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  border-radius: 50%;
+}
+
+/* Specific styles for SearchComponent on Events Page */
+.search-component.events-page-search .search-input-container {
+  background-color: var(--white-color); /* White background for search bar */
+}
+
+/* Adjust datepicker popper position for Events Page */
+.search-component.events-page-search .react-datepicker-popper {
+  left: 0 !important; /* Align popper to the left edge of the input */
 }

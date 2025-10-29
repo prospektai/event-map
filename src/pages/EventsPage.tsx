@@ -9,6 +9,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 // Removed faHeart imports as they are now in EventCard
 // Removed useTrackedEvents as it's now in EventCard
 import EventCard from '../components/EventCard'; // Import the new EventCard component
+import { filterAndSortEvents } from '../utils/eventUtils'; // Import the utility function
 
 const EventsPage: React.FC = () => {
   const allCategories: EventCategory[] = useMemo(() => {
@@ -63,7 +64,8 @@ const EventsPage: React.FC = () => {
 
   useEffect(() => {
     const filterEvents = () => {
-      let tempEvents = events;
+      // Start with all events, filtered and sorted by date
+      let tempEvents = filterAndSortEvents(events);
 
       if (searchTerm) {
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -118,6 +120,7 @@ const EventsPage: React.FC = () => {
             currentDateTo={dateTo}
             showSearchIcon={true}
             showHeading={false}
+            isEventsPage={true} // New prop to indicate it's on the Events Page
           />
         </div>
       </div>

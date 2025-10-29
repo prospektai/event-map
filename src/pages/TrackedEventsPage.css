@@ -18,7 +18,12 @@
 
 .tracked-events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive 4, 3, 2 columns */
+  gap: 15px; /* Reduced spacing */
   margin-top: 30px;
+}
+
+.tracked-events-grid .event-card {
+  width: auto; /* Override fixed width from EventCard.css */
+  flex: 1 1 auto; /* Allow cards to grow and shrink within the grid */
 }

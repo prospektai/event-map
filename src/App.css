@@ -50,41 +50,39 @@ nav ul li a:hover {
 
 .main-content {
   flex-grow: 1;
+  display: flex; /* Use flexbox for main content */
+  overflow-y: auto; /* Allow vertical scrolling for main content */
+  overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+.main-content .page-container {
+  flex-grow: 1;
+  height: 100%;
   position: relative;
-  overflow-y: auto; /* Allow vertical scrolling for the main content */
+  width: 100%; /* Ensure it takes full width within its flex context */
 }
 
-.page-container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-}
+/* Removed .main-content.sidebar-open .page-container width adjustment, rely on flexbox */
 
-.map-page {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.main-content .map-page {
+  width: 100%; /* Take full width of its parent (.page-container) */
+  height: 100%; /* Take full height of its parent (.page-container) */
+  position: relative; /* Remove absolute positioning */
 }
 
 .sidebar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 350px;
+  position: fixed; /* Position fixed to slide over content */
+  right: 0; /* Start from the right edge */
+  top: 0; /* Align to the top */
+  width: 350px; /* Define a fixed width for the sidebar */
   height: 100%;
   background-color: var(--white-color);
   box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-}
-
-.sidebar.open {
-  transform: translateX(0);
+  flex-shrink: 0;
+  overflow: hidden; /* Hide content that overflows its width */
 }
 
 /* Removed absolute positioning from sidebar close button */
@@ -175,8 +173,8 @@ nav ul li a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--ps);
-  padding-bottom: 0; /* Adjust as needed */
+  padding-bottom: var(--ps);
+  padding: 0; /* Adjust as needed */
 }
 
 .sidebar-header-close-btn {
@@ -239,4 +237,27 @@ nav ul li a:hover {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
   color: white;
+}
+
+/* Styles for custom map marker icon with tracked bubble */
+.custom-marker-icon-container {
+  position: relative;
+  display: inline-block; /* To contain the bubble correctly */
+}
+
+.tracked-marker-bubble {
+  position: absolute;
+  top: -8px; /* Adjust to be slightly outside the top of the marker */
+  right: -8px; /* Adjust to be slightly outside the right of the marker */
+  background-color: var(--primary-color); /* Primary color for the bubble */
+  color: var(--white-color); /* White heart icon */
+  border-radius: 50%; /* Circular shape */
+  width: 20px; /* Size of the bubble */
+  height: 20px; /* Size of the bubble */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7em; /* Size of the heart icon */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  z-index: 1001; /* Ensure it's above the marker */
 }

@@ -9,7 +9,11 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import L from 'leaflet';
-import { getMarkerIcon } from '../utils/categoryIcons'; // Import getMarkerIcon
+import { getMarkerIcon, categoryIcons } from '../utils/categoryIcons'; // Import getMarkerIcon and categoryIcons
+import { useTrackedEvents } from '../context/TrackedEventsContext'; // Import useTrackedEvents
+import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'; // Import solid heart icon
+import { renderToString } from 'react-dom/server'; // To render React component to string for DivIcon
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon
 // Extend the L.MarkerClusterGroup type to include the spiderfy method
 declare module 'leaflet' {
   interface MarkerClusterGroup {
@@ -43,6 +47,16 @@ const MapUpdater = ({ filteredEvents, handleBoundsChange }: { filteredEvents: Ev
   return null;
 };
 
+// New component to handle map resizing when sidebar state changes
+const MapResizer = ({ sidebarOpen }: { sidebarOpen: boolean }) => {
+  const map = useMap();
+  useEffect(() => {
+    // Invalidate map size when sidebar opens or closes to prevent horizontal scrollbar
+    map.invalidateSize();
+  }, [sidebarOpen, map]);
+  return null;
+};
+
 const allCategories: EventCategory[] = [
   'Technology',
   'Art',
@@ -57,6 +71,7 @@ const allCategories: EventCategory[] = [
 ];
 
 const MapPage = () => {
+  const { isEventTracked } = useTrackedEvents(); // Use tracked events context
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [currentSearchTerm, setCurrentSearchTerm] = useState<string>('');
@@ -68,6 +83,29 @@ const MapPage = () => {
   const markerRefs = useRef<{ [key: number]: L.Marker }>({});
   const clusterGroupRef = useRef<L.MarkerClusterGroup>(null);
 
+  // Function to create custom DivIcon for markers
+  const createCustomMarkerIcon = useCallback((category: EventCategory, isSelected: boolean, isTracked: boolean) => {
+    const defaultIcon = getMarkerIcon(category, isSelected); // Get the base icon
+    const iconHtml = `
+      <div class="custom-marker-icon-container">
+        ${defaultIcon.options.html}
+        ${isTracked ? `
+          <div class="tracked-marker-bubble">
+            ${renderToString(<FontAwesomeIcon icon={faSolidHeart} />)}
+          </div>
+        ` : ''}
+      </div>
+    `;
+
+    return L.divIcon({
+      className: 'custom-div-icon',
+      html: iconHtml,
+      iconSize: defaultIcon.options.iconSize,
+      iconAnchor: defaultIcon.options.iconAnchor,
+      popupAnchor: defaultIcon.options.popupAnchor,
+    });
+  }, [getMarkerIcon, faSolidHeart, renderToString, FontAwesomeIcon]); // Dependencies for useCallback
+
   const handleMarkerClick = (event: Event | null) => {
     setSelectedEvent(event);
     setSidebarOpen(true); // Always open sidebar when an event is clicked
@@ -76,8 +114,8 @@ const MapPage = () => {
       const marker = markerRefs.current[event.id];
       if (marker) {
         const parentCluster = clusterGroupRef.current.getVisibleParent(marker);
-        if (parentCluster) {
-          parentCluster.spiderfy();
+        if (parentCluster && 'spiderfy' in parentCluster && typeof parentCluster.spiderfy === 'function') {
+          (parentCluster as L.MarkerCluster).spiderfy();
         } else {
           // If not clustered, ensure the marker is visible (e.g., pan to it)
           // map.panTo(marker.getLatLng()); // User explicitly said "don't move the map"
@@ -147,7 +185,7 @@ const MapPage = () => {
               key={event.id}
               position={event.position}
               eventHandlers={{ click: () => handleMarkerClick(event) }}
-              icon={getMarkerIcon(event.categories[0], selectedEvent?.id === event.id)}
+              icon={createCustomMarkerIcon(event.categories[0], selectedEvent?.id === event.id, isEventTracked(event.id))}
               ref={(marker) => {
                 if (marker) {
                   markerRefs.current[event.id] = marker;
@@ -160,6 +198,7 @@ const MapPage = () => {
         </MarkerClusterGroup>
         <MapEvents onBoundsChange={handleBoundsChange} />
         <MapUpdater filteredEvents={filteredEvents} handleBoundsChange={handleBoundsChange} />
+        <MapResizer sidebarOpen={sidebarOpen} />
       </MapContainer>
       <Sidebar
         events={visibleEvents}
