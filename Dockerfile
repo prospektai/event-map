@@ -15,7 +15,7 @@ RUN yarn build
 FROM nginx:stable-alpine AS production
 
 # Copy Nginx configuration
-COPY dev-snippets/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+# The configuration is mounted at runtime via docker-compose
 
 # SSL certificates are handled by the reverse proxy
 

@@ -42,11 +42,11 @@ else
 fi
 
 # ------------------------------
-# Generate certs for dev profile
+# Generate certs for dev profile or standalone prod
 # ------------------------------
-# if [ "$PROFILE" = "dev" ]; then
-#     ./dev-snippets/generate-certs.sh
-# fi
+if [ "$PROFILE" = "dev" ] || { [ "$PROFILE" = "prod" ] && [ "$STANDALONE" = "true" ]; }; then
+    ./dev-snippets/generate-certs.sh
+fi
 
 # ------------------------------
 # Ensure external network exists
