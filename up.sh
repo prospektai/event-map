@@ -8,17 +8,38 @@ NETWORK_NAME="proxy-network"
 DEFAULT_PROFILE="prod"
 
 # ------------------------------
-# Determine profile
+# Determine profile and options
 # ------------------------------
-PROFILE=${1:-$DEFAULT_PROFILE}
+PROFILE="prod"
+STANDALONE=false
 
-if [[ "$PROFILE" != "dev" && "$PROFILE" != "prod" ]]; then
-    echo "Invalid profile: $PROFILE"
-    echo "Usage: $0 [dev|prod]"
-    exit 1
-fi
+for arg in "$@"; do
+  case $arg in
+    dev)
+      PROFILE="dev"
+      shift
+      ;;
+    prod)
+      PROFILE="prod"
+      shift
+      ;;
+    --standalone)
+      STANDALONE=true
+      shift
+      ;;
+    *)
+      # unknown option
+      ;;
+  esac
+done
 
 echo "Using Docker Compose profile: $PROFILE"
+if [ "$PROFILE" = "prod" ] && [ "$STANDALONE" = "true" ]; then
+  echo "Running in standalone mode with SSL"
+  export USE_SSL=true
+else
+  export USE_SSL=false
+fi
 
 # ------------------------------
 # Generate certs for dev profile
@@ -41,6 +62,12 @@ fi
 # Run Docker Compose
 # ------------------------------
 echo "Starting Docker Compose..."
-docker compose --profile "$PROFILE" up -d --build
+if [ "$PROFILE" = "prod" ] && [ "$USE_SSL" = "true" ]; then
+  docker compose --profile "$PROFILE" -f docker-compose.yml -f docker-compose.standalone.yml up -d --build
+elif [ "$PROFILE" = "prod" ]; then
+  docker compose --profile "$PROFILE" -f docker-compose.yml -f docker-compose.proxy.yml up -d --build
+else
+  docker compose --profile "$PROFILE" up -d --build
+fi
 
 echo "Done! Containers are running with profile: $PROFILE"

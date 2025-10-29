@@ -1,0 +1,8 @@
+services:
+  frontend-prod:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./dev-snippets/nginx/conf.d/default.standalone.conf:/etc/nginx/conf.d/default.conf
+      - ./dev-snippets/nginx/certs:/etc/nginx/certs
